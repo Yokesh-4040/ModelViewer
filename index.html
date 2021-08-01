@@ -40,13 +40,36 @@
          <div class="progress-bar hide" slot="progress-bar">
         <div class="update-bar"></div>
     </div>
+      
+      <div class="controls" ,="" id="color-controls">
+    <button data-color="1,0,0,1">Red</button>
+    <button data-color="0,1,0,1">Green</button>
+    <button data-color="0,0,1,1">Blue</button>
+  </div>
     </model-viewer>
 
     
   </div>
   
   
- 
+ <script>
+const modelViewerColor = document.querySelector("model-viewer#color");
+
+document.querySelector('#color-controls').addEventListener('click', (event) => {
+  const colorString = event.target.dataset.color;
+
+  if (!colorString) {
+    return;
+  }
+
+  const color = colorString.split(',')
+      .map(numberString => parseFloat(numberString));
+
+  console.log('Changing color to: ', color);
+  const [material] = modelViewerColor.model.materials;
+  material.pbrMetallicRoughness.setBaseColorFactor(color);
+});
+</script>
   
   
   <!-- 💁 Include both scripts below to support all browsers! -->
